@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM alpine:3.7
 MAINTAINER Moritz Heiber <hello@heiber.im>
 
 ENV ENVCONSUL_VERSION="0.7.2" \
