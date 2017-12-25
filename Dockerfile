@@ -6,7 +6,8 @@ ENV ENVCONSUL_VERSION="0.7.2" \
   ENVCONSUL_SHA256="6a0323b2467ff91be94394291b0326d2fc852315b9a8c6c41c2340ae2eeafd40" \
   CONSUL_TEMPLATE_SHA256="47b3f134144b3f2c6c1d4c498124af3c4f1a4767986d71edfda694f822eb7680"
 
-RUN apk --no-cache add curl ca-certificates && \
+RUN apk --no-cache upgrade && \
+  apk --no-cache add curl ca-certificates && \
   curl -o /tmp/envconsul.zip -L https://releases.hashicorp.com/envconsul/${ENVCONSUL_VERSION}/envconsul_${ENVCONSUL_VERSION}_linux_amd64.zip && \
   echo "${ENVCONSUL_SHA256}  /tmp/envconsul.zip" | sha256sum -c && \
   unzip /tmp/envconsul.zip -d /usr/bin/ && \
