@@ -1,5 +1,5 @@
 FROM alpine:3.7
-MAINTAINER Moritz Heiber <hello@heiber.im>
+LABEL maintainer="Moritz Heiber <hello@heiber.im>"
 
 ENV ENVCONSUL_VERSION="0.7.2" \
   CONSUL_TEMPLATE_VERSION="0.19.3" \
