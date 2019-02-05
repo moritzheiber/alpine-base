@@ -1,10 +1,10 @@
-FROM alpine:3.8
+FROM alpine:3.9
 LABEL maintainer="Moritz Heiber <hello@heiber.im>"
 
-ENV ENVCONSUL_VERSION="0.7.2" \
-  CONSUL_TEMPLATE_VERSION="0.19.3" \
-  ENVCONSUL_SHA256="6a0323b2467ff91be94394291b0326d2fc852315b9a8c6c41c2340ae2eeafd40" \
-  CONSUL_TEMPLATE_SHA256="47b3f134144b3f2c6c1d4c498124af3c4f1a4767986d71edfda694f822eb7680"
+ENV ENVCONSUL_VERSION="0.7.3" \
+  CONSUL_TEMPLATE_VERSION="0.19.5" \
+  ENVCONSUL_SHA256="67ed44cb254da24ca5156ada6d04e3cfeba248ca0c50a5ddd42282cbafde80bc" \
+  CONSUL_TEMPLATE_SHA256="e6b376701708b901b0548490e296739aedd1c19423c386eb0b01cfad152162af"
 
 RUN apk --no-cache upgrade && \
   apk --no-cache add curl ca-certificates && \
@@ -15,4 +15,4 @@ RUN apk --no-cache upgrade && \
   echo "${CONSUL_TEMPLATE_SHA256}  /tmp/consul-template.zip" | sha256sum -c && \
   unzip /tmp/consul-template.zip -d /usr/bin/ && \
   rm -f /tmp/envconsul.zip /tmp/consul-template.zip && \
-  apk del --purge curl
+  apk --no-cache del --purge curl

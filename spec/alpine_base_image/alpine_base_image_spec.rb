@@ -47,10 +47,10 @@ describe 'Alpine base image Docker container', :extend_helpers do
   end
 
   describe command('consul-template -v') do
-    its(:stderr) { should match(/v0\.19\.3/) }
+    its(:stderr) { should match(/v0\.19\.5/) }
   end
 
   describe command('envconsul -v') do
-    its(:stderr) { should match(/v0\.7\.2/) }
+    its(:stderr) { should match(/v0\.7\.3/) }
   end
 end
