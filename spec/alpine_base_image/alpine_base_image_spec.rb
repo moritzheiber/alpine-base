@@ -12,7 +12,7 @@ RSpec.configure do |c|
   c.extend Helpers
 end
 
-# rubocop:disable Metrics/BlockLength
+# rubocop:disable Metrics/BlockLength,RSpec/DescribeClass
 describe 'Alpine base image Docker container', :extend_helpers do
   set :os, family: :alpine
   set :backend, :docker
@@ -54,3 +54,4 @@ describe 'Alpine base image Docker container', :extend_helpers do
     its(:stderr) { should match(/v0\.7\.3/) }
   end
 end
+# rubocop:enable Metrics/BlockLength,RSpec/DescribeClass
