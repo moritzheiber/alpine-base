@@ -1,4 +1,4 @@
-FROM alpine:3.9.3
+FROM alpine:3.9.4
 LABEL maintainer="Moritz Heiber <hello@heiber.im>"
 
 ENV ENVCONSUL_VERSION="0.7.3" \
