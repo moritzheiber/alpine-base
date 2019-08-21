@@ -1,4 +1,4 @@
-FROM alpine:3.10.1
+FROM alpine:3.10.2
 LABEL maintainer="Moritz Heiber <hello@heiber.im>"
 
 ARG ENVCONSUL_VERSION="0.7.3"
