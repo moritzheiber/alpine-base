@@ -18,7 +18,7 @@ end
 describe 'Alpine base image Docker container', :extend_helpers do
   set :os, family: :alpine
   set :backend, :docker
-  set :docker_image, 'alpine-base'
+  set :docker_image, 'alpine'
 
   %w[
     /usr/bin/envconsul
