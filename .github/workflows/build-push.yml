@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: install-deps
-        run: apt update && apt install -y ruby-bundler
+        run: sudo apt update && sudo apt install -y ruby-bundler
       - name: build
         run: ./run build
       - name: test
