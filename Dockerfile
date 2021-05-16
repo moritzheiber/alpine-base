@@ -1,5 +1,6 @@
-FROM alpine:3.12.3
+FROM alpine:3.13.5
 LABEL maintainer="Moritz Heiber <hello@heiber.im>"
+LABEL org.opencontainers.image.source=https://github.com/moritzheiber/alpine-base
 
 ARG ENVCONSUL_VERSION="0.11.0"
 ARG ENVCONSUL_SHA256="e52fe2036cacec12b24431044af2c71989c21271ef4d880d3f0e713aee203bc0"
