@@ -25,6 +25,7 @@ jobs:
           echo ${GHCR_ACCESS_TOKEN} | docker login ghcr.io -u ${GITHUB_ACTOR} --password-stdin
           ./run push
   trigger-container-build:
+    needs: build-test-push
     runs-on: ubuntu-20.04
     name: "Trigger build for dependent containers"
     strategy:
