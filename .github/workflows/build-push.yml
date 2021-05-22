@@ -24,8 +24,16 @@ jobs:
         run: |
           echo ${GHCR_ACCESS_TOKEN} | docker login ghcr.io -u ${GITHUB_ACTOR} --password-stdin
           ./run push
+  trigger-container-build:
+    runs-on: ubuntu-20.04
+    name: "Trigger build for dependent containers"
+    strategy:
+      matrix:
+        repo: ['moritzheiber/caddy-docker', 'moritzheiber/alpine-docker']
+    steps:
       - uses: passeidireto/trigger-external-workflow-action@main
+        name: trigger-container-builds
         with:
-          repository: moritzheiber/caddy-docker
+          repository: ${{ matrix.repo }}
           event: container_updated
           github_pat: ${{ secrets.CROSS_REPO_TOKEN }}
