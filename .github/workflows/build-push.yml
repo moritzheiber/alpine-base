@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - uses: e1himself/goss-installation-action
+      - uses: e1himself/goss-installation-action@master
         name: Install goss/dgoss
       - name: Login to GHCR
         uses: docker/login-action@v1
