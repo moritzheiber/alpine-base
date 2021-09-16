@@ -3,34 +3,50 @@ on:
   push:
     branches:
       - main
+      - pull_request
     tags-ignore:
       - "*"
 
 jobs:
-  build-test-push:
-    if: "!contains(github.event.commits[0].message, '[ci skip]')"
+  build-push:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: install-deps
-        run: sudo apt update && sudo apt install -y ruby-bundler
-      - name: build
-        run: ./run build
-      - name: test
-        run: ./run test
-      - name: push
-        env:
-          GHCR_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo ${GHCR_ACCESS_TOKEN} | docker login ghcr.io -u ${GITHUB_ACTOR} --password-stdin
-          ./run push
+          sudo apt update
+          sudo apt install -y ruby-bundler
+      - name: Login to GHCR
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and export to Docker
+        uses: docker/build-push-action@v2
+        with:
+          push: false
+          load: true
+      - name: Test
+        run: |
+          bundle config set --local path vendor/bundle
+          bundle install
+          bundle exec rspec
+      - name: Build and push
+        if: github.ref == 'refs/heads/main'
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: "moritzheiber/alpine:latest"
   trigger-container-build:
-    needs: build-test-push
+    needs: build-push
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-20.04
     name: "Trigger build for dependent containers"
     strategy:
       matrix:
-        repo: ['moritzheiber/caddy-docker', 'moritzheiber/alpine-docker']
+        repo: ["moritzheiber/caddy-docker", "moritzheiber/alpine-docker"]
     steps:
       - uses: passeidireto/trigger-external-workflow-action@main
         name: trigger-container-builds
