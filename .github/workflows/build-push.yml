@@ -13,10 +13,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: install-deps
-        run: |
-          sudo apt update
-          sudo apt install -y ruby-bundler
+      - uses: e1himself/goss-installation-action
       - name: Login to GHCR
         uses: docker/login-action@v1
         with:
@@ -28,11 +25,9 @@ jobs:
         with:
           push: false
           load: true
+          tags: alpine-base
       - name: Test
-        run: |
-          bundle config set --local path vendor/bundle
-          bundle install
-          bundle exec rspec
+        run: dgoss run -ti alpine-base
       - name: Build and push
         if: github.ref == 'refs/heads/main'
         uses: docker/build-push-action@v2

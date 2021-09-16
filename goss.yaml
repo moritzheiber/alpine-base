@@ -1,0 +1,46 @@
+file:
+  /usr/bin/envconsul:
+    exists: true
+    mode: "0755"
+    owner: root
+    group: root
+    filetype: file
+  /usr/bin/consul-template:
+    exists: true
+    mode: "0755"
+    owner: root
+    group: root
+    filetype: file
+  /usr/bin/gomplate:
+    exists: true
+    mode: "0755"
+    owner: root
+    group: root
+    filetype: file
+  /tmp/envconsul.zip:
+    exists: false
+  /tmp/consul-template.zip:
+    exists: false
+  /etc/os-release:
+    exists: true
+    contains:
+      - "alpine"
+package:
+  curl:
+    installed: false
+command:
+  consule-template-version:
+    exit-status: 0
+    exec: "consul-template -v"
+    stderr:
+      - "v0.25.1"
+  envconsul-version:
+    exit-status: 0
+    exec: "envconsul -v"
+    stderr:
+      - "v0.11.0"
+  gomplate-version:
+    exit-status: 0
+    exec: "gomplate -v"
+    stdout:
+      - "3.8.0"
