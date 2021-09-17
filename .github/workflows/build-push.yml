@@ -36,7 +36,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: "moritzheiber/alpine:latest"
+          tags: "ghcr.io/moritzheiber/alpine:latest"
   trigger-container-build:
     needs: build-push
     if: github.ref == 'refs/heads/main'
