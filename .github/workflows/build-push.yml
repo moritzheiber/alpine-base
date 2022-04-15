@@ -1,5 +1,7 @@
 name: build-push
 on:
+  schedule:
+    - cron:  '33 3 * * 2'
   push:
     branches:
       - main
