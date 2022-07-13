@@ -1,7 +1,7 @@
 name: build-push
 on:
   schedule:
-    - cron:  '33 3 * * 2'
+    - cron: "33 3 * * 2"
   push:
     branches:
       - main
@@ -48,7 +48,7 @@ jobs:
     name: "Trigger build for dependent containers"
     strategy:
       matrix:
-        repo: ["moritzheiber/caddy-docker", "moritzheiber/alpine-docker"]
+        repo: ["moritzheiber/caddy-docker"]
     steps:
       - uses: passeidireto/trigger-external-workflow-action@main
         name: trigger-container-builds
