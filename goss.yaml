@@ -43,4 +43,4 @@ command:
     exit-status: 0
     exec: "gomplate -v"
     stdout:
-      - "3.8.0"
+      - "3.11.2"
