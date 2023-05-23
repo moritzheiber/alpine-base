@@ -28,7 +28,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and export to Docker
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           push: false
           load: true
@@ -37,7 +37,7 @@ jobs:
         run: dgoss run -ti alpine-base
       - name: Build and push
         if: github.ref == 'refs/heads/main'
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           push: true
           tags: "ghcr.io/moritzheiber/alpine:latest"
