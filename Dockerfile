@@ -1,4 +1,4 @@
-FROM alpine:3.16.2
+FROM alpine:3.18.0
 LABEL maintainer="Moritz Heiber <hello@heiber.im>"
 LABEL org.opencontainers.image.source=https://github.com/moritzheiber/alpine-base
 
