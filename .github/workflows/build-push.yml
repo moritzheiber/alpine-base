@@ -13,7 +13,7 @@ on:
 
 jobs:
   build-push:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -39,14 +39,13 @@ jobs:
         if: github.ref == 'refs/heads/main'
         uses: docker/build-push-action@v6
         with:
-          push: true
           tags: "ghcr.io/moritzheiber/alpine:latest"
   dependabot:
     needs: [build-push]
     permissions:
       contents: write
       pull-requests: write
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: ${{ github.actor == 'dependabot[bot]' }}
     steps:
       - name: Enable auto-merge for Dependabot PRs
@@ -54,19 +53,18 @@ jobs:
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-
   trigger-container-build:
-    needs: build-push
+    needs: [build-push]
     if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     name: "Trigger build for dependent containers"
     strategy:
       matrix:
-        repo: ["moritzheiber/caddy-docker", "moritzheiber/radicale-docker"]
+        repo: ["moritzheiber/caddy-docker"]
     steps:
-      - uses: passeidireto/trigger-external-workflow-action@main
-        name: trigger-container-builds
+      - name: trigger-build-downstream
+        uses: peter-evans/repository-dispatch@v3
         with:
-          repository: ${{ matrix.repo }}
-          event: container_updated
-          github_pat: ${{ secrets.CROSS_REPO_TOKEN }}
+          token: ${{ secrets.CROSS_REPO_TOKEN }}
+          repository: ${{ matrix.repo}}
+          event-type: container_updated
